@@ -19,9 +19,13 @@ fordCircle p q = (p2 (x, y), circle radius # lw ultraThin)
 			      x      = fromIntegral p / fromIntegral q
 			      y      = radius
 
-fordCircles :: Integer -> [(P2, Diagram B R2)]
-fordCircles depth = [fordCircle p q | q <- [1..depth], p <- (coprimes q)]  
+fordCircles' :: Integer -> [(P2, Diagram B R2)]
+fordCircles' depth = [fordCircle p q | q <- [1..depth], p <- (coprimes q)]  
+
+fordCircles = (position $ fordCircles' depth)
+yAxis = (position [(p2 (0, 0.5), vrule 1)]) # lw veryThin
+xAxis = (position [(p2 (0.5, 0), hrule 1)]) # lw veryThin
 
 depth = 16
 main :: IO ()
-main = defaultMain $ (position [(p2 (0, 0.5), vrule 1)]) # lw veryThin `atop` (position $ fordCircles depth) === (position [(p2 (0.5, 0), hrule 1)]) # lw veryThin
+main = defaultMain $ yAxis `atop` fordCircles === xAxis
