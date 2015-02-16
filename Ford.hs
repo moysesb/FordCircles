@@ -10,12 +10,12 @@ coprimes n
 	| n <= 0 = []
 	| otherwise = [x | x <- [0..n], gcd n x == 1]
 
-fordRatio :: Integer -> Integer -> Ratio Integer
-fordRatio p q = 1 % ( 2 * (q ^ 2) )
+fordRatio :: Integer -> Ratio Integer
+fordRatio q = 1 % ( 2 * (q ^ 2) )
 
 fordCircle :: Integer -> Integer-> (P2, Diagram B R2)
 fordCircle p q = (p2 (x, y), circle radius # lw ultraThin) 
-			where radius = fromRational $ fordRatio p q
+			where radius = fromRational $ fordRatio q
 			      x      = fromIntegral p / fromIntegral q
 			      y      = radius
 
